@@ -1,12 +1,14 @@
 # oauth PRAW template by /u/The1RGood #
 #==================================================Config stuff====================================================
 import time
-import praw, prawcore
+import praw, prawcore, prawdditions
 import pymongo
 from flask import Flask, request
 from threading import Thread
 import configparser
 from lib.mail_handler import *
+from lib.post_notifications import *
+from lib.runtime_manager import *
 
 Config = configparser.ConfigParser()
 Config.read('service.cfg')
@@ -58,7 +60,17 @@ app.run(host="0.0.0.0",debug=False, port=65010)
 
 def main():
 	mh = MailHandler(r, coll)
-	mh.read_mail()
+	pn = PostNotifications(r, coll)
+
+	mail_thread = Thread(target=mh.read_mail, args=())
+	mail_thread.setDaemon(True)
+	mail_thread.start()
+
+	while(RuntimeManager().is_running()):
+		try:
+			pn.send_notifications()
+		except KeyboardInterrupt:
+			RuntimeManager().halt()
 
 if(__name__=='__main__'):
 	main()
