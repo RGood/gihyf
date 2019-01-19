@@ -9,6 +9,7 @@ import configparser
 from lib.mail_handler import *
 from lib.post_notifications import *
 from lib.runtime_manager import *
+import sys
 
 Config = configparser.ConfigParser()
 Config.read('service.cfg')
@@ -71,6 +72,8 @@ def main():
 			pn.send_notifications()
 		except KeyboardInterrupt:
 			RuntimeManager().halt()
+		except:
+			print(sys.exc_info()[0])
 
 if(__name__=='__main__'):
 	main()
