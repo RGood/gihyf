@@ -53,7 +53,7 @@ r = praw.Reddit(
 	client_id=CLIENT_ID,
 	client_secret=CLIENT_SECRET,
 	redirect_uri=REDIRECT_URI,
-	user_agent='Sub Mentions general usage client',
+	user_agent='GIHYF Notification Client',
     api_request_delay=0)
 print(r.auth.url(scope.split(' '),'UniqueKey'))
 app.run(host="0.0.0.0",debug=False, port=65010)
