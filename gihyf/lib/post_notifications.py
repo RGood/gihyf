@@ -1,7 +1,7 @@
 from lib.subreddit_manager import *
 from lib.runtime_manager import *
 
-header = "Author: {0}\n\nTitle: {1}\n\n____\n\n"
+header = "Author: /u/{0}\n\nTitle: {1}\n\n____\n\n"
 footer = "\n\n____\n\n[Turn Me Off](https://www.reddit.com/message/compose/?to=get_in_here_you_fuck&subject=Remove&message={0}) | [Contact My Creator](https://www.reddit.com/message/compose/?to=The1RGood&subject=GIHYF%20Bot)"
 
 class PostNotifications:
@@ -21,7 +21,7 @@ class PostNotifications:
 				print("---------------------------")
 				print("Sending notification:\nUser:\t\t{0}\nSubreddit:\t{1}".format(user, post.subreddit.display_name))
 				self.client.message(user, "A new post has been made in {0}".format(post.subreddit.display_name), header.format(post.author.name, post.title) + post.permalink + footer.format(post.subreddit.display_name.lower()))
-				
+
 				#print("---------------------------")
 				#print("A new post has been made in {0}".format(post.subreddit.display_name))
 				#print(post.permalink)

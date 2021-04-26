@@ -1,4 +1,5 @@
 import yaml
+from yaml import SafeLoader
 from lib.subreddit_manager import *
 from lib.runtime_manager import *
 import re
@@ -53,7 +54,7 @@ class MailHandler:
 		return len(upserted)
 
 	def unsubscribe(self, to_find, user):
-		
+
 		print("---------------------------")
 		print("Action:\t\tUnsubscribe\nUser:\t\t{0}\nSubreddits:\t{1}".format(user, to_find))
 
@@ -68,7 +69,7 @@ class MailHandler:
 		}, upsert=True, multi=True)
 
 	def parse_body(self, body):
-		doc = yaml.load(body)
+		doc = yaml.load(body, Loader=SafeLoader)
 		if(doc.__class__ == str or doc.__class__ == list):
 			return self.convert_to_lower(doc)
 		elif doc.__class__ == dict:
